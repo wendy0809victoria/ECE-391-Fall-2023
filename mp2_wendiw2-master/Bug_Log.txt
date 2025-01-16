@@ -1,0 +1,46 @@
+Checkpoint 1:
+
+Bug 1: Line 636 in modex.c, function draw_vert_line (int x), new vertical line appears strange and weird.
+Reason 1: Cyclic shifted plane offset of the first pixel, just like draw_horiz_line (int y).
+Solution 1: Keep plane offset the same when drawing vertical line(s).
+It took me half an hour to figure out and fix this error.
+
+Bug 2: Line 556 in modex.c, function show_status_bar (const char* cmd, const char* where, 
+       const char* msg), status bar doesn't appear.
+Reason 2: Misunderstood the meaning of "Each character is 8x16 pixels", set the size of status bar to be
+          3 pixels in height. 
+Solution 2: Set the size of status bar to be 18 pixels height * 320 pixels width. 
+It took me an hour to figure out and fix this error.
+
+Bug 3: Line 252 in adventure.c, function game_loop(), the game seems to fall into an infinite loop after 
+       acquiring msg_lock.
+Reason 3: Failed to include unlock after calling show_status_bar(const char* cmd, const char* where, 
+          const char* msg).
+Solution 3: Unlock msg_lock after drawing status bar.
+It took me 10 minutes to figure out and fix this error.
+
+Bug 4: Line 596 in adventure.c, function text_to_image(const char* cmd, const char* where, 
+       const char* msg), no room name and command appear even when status message is empty.
+Reason 4: Confused ASCII character 0x00 and logical number 0 in if condition "*msg != 0" (should be 
+          "*msg != 0x00").
+Solution 4: Change "*msg != 0" to "*msg != 0x00".
+It took me an hour to figure out and fix this error.
+
+Bug 5: Line 59 in modex.h, macro definition of IMAGE_Y_DIM, the page cannot be scrolled down when the room
+       photo is small. 
+Reason 5: After adding status bar at the last 18 rows of the screen, y of the screen should no longer be 200.
+Solution 5: Change "#define IMAGE_Y_DIM 200" to "#define IMAGE_Y_DIM 182".
+It took me two hours to figure out and fix this error.
+
+Checkpoint 2:
+
+Bug 1: Line 596 in photo.c, function read_photo (const char* fname), reopen the file without calling fseek.
+Reason 1: We have already reached the end of the file and closed it, so we cannot reopen it without calling 
+          fseek.
+Solution 1: Store every pixel the first time to go through the photo. 
+It took me twenty minutes to figure out and fix this error.
+
+Bug 2: Line 578 in photo.c, function read_photo (const char* fname), the color stored is weird.
+Reason 1: Forgetting to extend red bits and blue bits from 5 to 6.
+Solution 1: Left shift red bits and blue bits before calculating average and sending to VGA palette.
+It took me half an hour to figure out and fix this error.
