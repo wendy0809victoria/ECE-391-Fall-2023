@@ -1,5 +1,5 @@
 # ECE 391 Fall 2023
- Coursework from ECE 391 (Computer Systems Engineering) in the Fall of 2023 semester. 
+ Coursework from Computer Systems Engineering (ECE 391) in the Fall of 2023 semester. 
 
 ## Academic Integrity
 1. Every file in this repository is for academic usage ONLY, and DO NOT COPY THE CODE. 
