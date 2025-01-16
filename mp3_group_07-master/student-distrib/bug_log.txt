@@ -1,0 +1,100 @@
+CheckPoint 1:
+    -GDT:
+            the symptom of problem: The program can't boot after completing GDT
+            the rough time of finding the bug: 30 min
+            the difficulty of fixing the bug: need both GDT and IDT to boot system
+
+    -IDT:
+            the symptom of problem: The program continued running after an exception occurred, because we forgot to add a "halt" instruction
+                                    (while (1)) after an exception occurred.
+            the rough time of finding the bug: One hour. 
+            the difficulty of fixing the bug: Medium. It is quite easy to understand the process after exceptions occur, but it takes some pati-
+                                              ence and time to figure out the missing instruction. 
+
+    -RTC
+            the symptom of problem: The RTC can't work when tested with test_interrupts()
+            the rough time of finding the bug: 20 min
+            the difficulty of fixing the bug: enable the wrong IRQ for RTC
+
+    -Keyboard
+            the symptom of problem: The echo on screen is not corresponding pressed keyboard 
+            the rough time of finding the bug: 30 min
+            the difficulty of fixing the bug: use the wrong match table for scan code
+
+    -Paging
+            the symptom of problem: Using info mem shows more than two pages
+            the rough time of finding the bug: 20 min
+            the difficulty of fixing the bug: set the present page out of 8 MB
+
+CheckPoint2:
+     -Terminal
+            the symptom of problem: Space character appears on the terminal whatever input charater
+            the rough time of finding the bug: 1 hour
+            the difficulty of fixing the bug: Tracing the content in the terminal buffer and keyboard buffer
+
+     -Keyboard
+            the symptom of problem: Stop reading and displaying after Shift key pressed
+            the rough time of finding the bug: 30 min
+            the difficulty of fixing the bug: Tracing the status of Shift key pressed and Caps Lock key pressed
+
+     -File system
+            the symptom of problem: read_data can not print out the correct content of files
+            the rough time of finding the bug: 30 min
+            the difficulty of fixing the bug: modify a condition in the for loop over data blocks
+
+     -RTC 
+            the symptom of problem: Failing to change the frequency when corresponding function is called
+            the rough time of finding the bug: 30 min
+            the difficulty of fixing the bug: No initialization of default frequency
+
+Checkpoint3: 
+     -System Call handler
+            the symptom of problem: the program always terminated abnormally in the shell
+            the rough time of finding the bug: 4 hours
+            the difficulty of fixing the bug: overwrite the eax in the system call handler linkage
+
+     -Execute
+            the symptom of problem: can't enter the shell
+            the rough time of finding the bug: 2 h
+            the difficulty of fixing the bug: the read_data 's end_data_block and end_offset plus an extra 1
+
+     -Halt
+            the symptom of problem: run into general protection exception when called
+            the rough time of finding the bug: 2 hours
+            the difficulty of fixing the bug: wrongly setting return value in eax to be the value of "status" instead of 0
+
+     -Open, Read, Write & Close
+            the symptom of problem: fail to open a directory
+            the rough time of finding the bug: 4 hours
+            the difficulty of fixing the bug: using "file_open" instead of "read_dentry_by_name" to validate input directory name
+
+Checkpoint4:
+       -getargs
+              the symptom of problem: can't read args correctly
+              the rough time of finding the bug: 20 min
+              the difficulty of fixing the bug: didn't parse the leading spaces before the arg
+
+       -vidmap
+              the symptom of problem: page fault after enter fish in shell
+              the rough time of finding the bug: 4h
+              the difficulty of fixing the bug: didn't add vidmap for the jump table in asm linkage 
+
+       -sethandler
+              the symptom of problem: "kill the task" seems no use to every signal
+              the rough time of finding the bug: 1h
+              the difficulty of fixing the bug: didn't call halt(0) in KILL helper function
+
+       -sigreturn
+              the symptom of problem: page fault after calling syserr user program
+              the rough time of finding the bug: 20 min
+              the difficulty of fixing the bug: hardware context on user stack should be esp+4 (no arguments passed to sigreturn)
+
+Checkpoint5:
+       -Multi-terminal
+              the symptom of problem: cannot handle overflow after adding terminal 2 and 3
+              the rough time of finding the bug: 1 hour
+              the difficulty of fixing the bug: did not set overflow flag for each of the terminals separatedly
+       -Pit
+              the symptom of problem: cannot run pingpong and counter simultaneously on two separate terminals
+              the rough time of finding the bug: 5 hours
+              the difficulty of fixing the bug: the order of schedule did not follow that of the terminal, followed pid order instead
